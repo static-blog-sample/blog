@@ -5,8 +5,7 @@ python:
 
 env:
   global:
-    - secure: "ObfFUVWb3ly6VVFhhVBkmhBI/4dW0WXgxMabx2Bkj2JN4y6X1PH05GcPMU5OGN9CaCpNOr+wmTz5kNeDwawbqQcWfKj+inkpmsyhEPAerM5cgbKp46lKaMUmGWsG6t2opJ/g8X33mc3chMiPieWFM5g08QAQoBlIV3CQ2JaryaU="
-
+    - secure: "FF/hzAGl1+FJey4VlK5V4o2DvVQ7yp5Nwj07YlJHogzyNn6SiR2gVhlci9WPDlV/QpmUNBjXAIfscaYWejDiGJd7NvRFBttnRRAtAgiPMK4yOuRMNg9O0uHrgcXh/dCcD5UM+p55AHubFcKFJYPpP1LokplQZe1UuHn81EUsJsg="
 
 install:
   - pip install -r requirements.txt
