@@ -53,6 +53,7 @@ content repo와 output repo를 git submodule로 엮는다. static html generator
 # output repo의 경우는 자기에 맞게 바꾼다
 
 git submodule add https://github.com/static-blog-sample/static-blog-sample.github.io.git output
+git submodule update
 ```
 
 ## 정적 사이트 생성기 붙이기
@@ -105,14 +106,15 @@ travis encrypt GH_TOKEN=<token> -r <repo-name>
 travis-ci가 블로그를 받아서 수행할 작업을 작성한다. 세부 내용은 자신의 환경에 맞춰서 바꾸면된다.
 
 ```
-# 정적 html 생성은 자신이 사용하는 환경에 맞춰서 바꾼다.
-make publish
 git config --global user.email "your-mail@gmail.com"
 git config --global user.name "Travis"
 cp CNAME output
 cd output
-git pull origin master
 git checkout master
+git pull
+cd ..
+make publish
+cd output
 git add -f .
 git commit -a -m "add new site content"
 git push https://${GH_TOKEN}@github.com/static-blog-sample/static-blog-sample.github.io.git master

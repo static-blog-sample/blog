@@ -11,13 +11,15 @@ install:
   - pip install -r requirements.txt
 
 script:
-  - make publish
   - git config --global user.email "libsora25@gmail.com"
   - git config --global user.name "Travis"
   - cp CNAME output
   - cd output
-  - git pull origin master
   - git checkout master
+  - git pull
+  - cd ..
+  - make publish
+  - cd output
   - git add -f .
   - git commit -a -m "add new site content"
   - git push https://${GH_TOKEN}@github.com/static-blog-sample/static-blog-sample.github.io.git master
