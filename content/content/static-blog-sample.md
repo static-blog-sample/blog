@@ -24,23 +24,15 @@ travis-ci와 연동해서 완전 자동화도 끝냈다.
 
 ## Double Repository
 
-GitHub Pages는 2가지 상황에서 동작이 다르다.
-
-* 계정(혹은 회사)에 딸린 pages. <username>.github.io 프로젝트의 master 브렌치를 사용한다.
-* 프로젝트에 딸린 pages. gh-pages 저장소를 새로 만들어서 사용한다. 글의 목표가 개인 블로그를 만드는것이니까 프로젝트에 딸린 pages에 대해서는 취급하지 않는다.
+GitHub Pages는 2가지 상황에서 동작이 다르다. 하나는 계정(혹은 회사)에 딸린 pages이다. username.github.io 프로젝트의 master 브렌치를 사용한다. 다른 하나는 프로젝트에 딸린 pages이다. gh-pages 저장소를 새로 만들어서 사용한다. 글의 목표가 개인 블로그를 만드는것이니까 프로젝트에 딸린 pages에 대해서는 취급하지 않는다.
 
 
-github pages의 경우 <username>.github.io 에 있는 내용을 그대로 웹에 보여준다. 블로그 내용을 내용을 <username>.github.io 에 집어넣고 자동생성된 html도 <username>.github.io 에 존재하면 저장소가 깨끗하지 않다. 데이터도 섞여있고 커밋로그도 섞여있다.
+개인용 github pages의 경우 username.github.io 에 있는 내용을 그대로 웹에 보여준다. 블로그 내용을 내용을 username.github.io 에 집어넣고 자동생성된 html도 username.github.io 에 존재하면 저장소가 깨끗하지 않다. 데이터도 섞이게 되고 커밋로그도 섞여있다.
 
 그래서 저장소를 2개로 분리하는게 좋다.
 
-* 실제 블로그 내용이 있는 저장소. 앞으로 **content repo** 라고 부른다.
-* 생성된 html만 들어있는 <username>.github.io. 앞으로 **output repo**라고 부른다
-
-예제로 다음 2개의 저장소를 만들었다.
-
-* 내용을 저장 : https://github.com/static-blog-sample/blog
-* github pages를 저장 : https://github.com/static-blog-sample/static-blog-sample.github.io
+* 실제 블로그 내용이 있는 저장소. 앞으로 **[content repo](https://github.com/static-blog-sample/blog)** 라고 부른다.
+* 생성된 html만 들어있는 username.github.io. 앞으로 **[output repo](https://github.com/static-blog-sample/static-blog-sample.github.io)**라고 부른다
 
 
 ## content repo ↔ output repo ⇒ git submodule
@@ -62,6 +54,9 @@ git submodule update
 다른건 어떻게 설정하든 내가 알바 아니지만 생성 결과물이 **output**에 들어가도록 한다.
 pelican을 이용한 설정 예제는 해당 블로그를 참고하면 된다.
 
+
+## CNAME
+블로그에 custom domain을 설정하고 싶으면 [Setting up a custom domain with Pages][custom-domain]을 설정하면 된다. 내용을 참고해서 CNAME 파일을 만들고 DNS설정을 해주면 도메인이 연결된다.
 
 ## travis-ci
 
@@ -89,13 +84,13 @@ github profile -> [Applications](https://github.com/settings/applications)
 ![Create new token](/static/create-token.png)
 
 token은 얻었는데 이것을 ```.travis.yml```에 그냥 노출시키는건 말이 안되잖아?
-그래서 [travis-ci는 token과 같이 중요한 정보를 암호화 시키는 방법][http://docs.travis-ci.com/user/encryption-keys/]을 제공한다.
+그래서 [travis-ci는 token과 같이 중요한 정보를 암호화 시키는 방법](http://docs.travis-ci.com/user/encryption-keys/)을 제공한다.
 루비 gem이 필요한 관계로 이것이 굴러가는 환경을 구축한다.
 아래의 명령에서 repo-name은 자신한테 맞는것으로 바꾼다. 예를 들면 이 글의 경우는 ```static-blog-sample/blog```이다. output repo가 아니라 **content repo**다!
 
 ```
 gem install travis
-travis encrypt GH_TOKEN=<token> -r <repo-name>
+travis encrypt GH_TOKEN=<token> -r <content-repo-name>
 
 ```
 
@@ -103,31 +98,27 @@ travis encrypt GH_TOKEN=<token> -r <repo-name>
 
 ### 빌드 스크립트 작성
 
-travis-ci가 블로그를 받아서 수행할 작업을 작성한다. 세부 내용은 자신의 환경에 맞춰서 바꾸면된다.
+travis-ci가 블로그를 받아서 수행할 작업을 작성한다.
+이 블로그에 사용한 [.travis.yml](https://github.com/static-blog-sample/blog/blob/master/.travis.yml)을 참고한다. 세부 내용은 자신의 환경에 맞춰서 바꾸면된다.
 
-```
-git config --global user.email "your-mail@gmail.com"
-git config --global user.name "Travis"
-cp CNAME output
-cd output
-git checkout master
-git pull
-cd ..
-make publish
-cd output
-git add -f .
-git commit -a -m "add new site content"
-git push https://${GH_TOKEN}@github.com/static-blog-sample/static-blog-sample.github.io.git master
-```
+## 정리
+여기까지 완료했으면 블로그에 새로운 글을 쓰고 푸시해보자. travis-ci가 html을 생성하고 GitHub Pages로 푸시를 한다. 그리고 빌드가 성공적으로 끝났으면 빌드 성공했다고 스팸메일이 날라온다. 몇분정도 지나면 새로운 내용이 적용된다.
+
+이 블로그와 관련된 추가 정보는 다음의 링크에서 확인가능하다
+
+* [content repo](https://github.com/static-blog-sample/blog) : .travis.yml이라든가 기본 설정 참고용
+* [output repo](https://github.com/static-blog-sample/static-blog-sample.github.io) : github pages로 연결되어있다.
+* [![Build Status](https://travis-ci.org/static-blog-sample/blog.png?branch=master)](https://travis-ci.org/static-blog-sample/blog) travis-ci
 
 
 # Reference
 
-* [GitHub Pages][http://pages.github.com]
+* [GitHub Pages](http://pages.github.com)
 * [정적 웹사이트 생성기의 유혹][static-site-generator]
-* [wesleyhales.com][https://github.com/wesleyhales/wesleyhales.com]
+* [wesleyhales.com](https://github.com/wesleyhales/wesleyhales.com)
 * [onCrashReboot][talha131-blog]
 
 [github-custom-domain]: https://help.github.com/articles/setting-up-a-custom-domain-with-pages
 [static-site-generator]: http://blog.nacyot.com/articles/2014-01-15-static-site-generator/
 [talha131-blog]: https://github.com/talha131/onCrashReboot
+[custom-domain]: https://help.github.com/articles/setting-up-a-custom-domain-with-pages
