@@ -118,6 +118,9 @@ travis-ci가 블로그를 받아서 수행할 작업을 작성한다.
 * [wesleyhales.com](https://github.com/wesleyhales/wesleyhales.com)
 * [onCrashReboot][talha131-blog]
 
+# Document History
+* 2014/02/02 : [nacyot](http://blog.nacyot.com)님의 지적으로 .travis.yml 스크립트 수정
+
 [github-custom-domain]: https://help.github.com/articles/setting-up-a-custom-domain-with-pages
 [static-site-generator]: http://blog.nacyot.com/articles/2014-01-15-static-site-generator/
 [talha131-blog]: https://github.com/talha131/onCrashReboot

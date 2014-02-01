@@ -5,7 +5,7 @@ python:
 
 env:
   global:
-    - secure: "KVyq2T0VewIq/0bDTtOQLXkFH2s5fvNlIorSFBMnk1Cdd8HrP3wazzfd0B1BDWItfqFJPW/DcEtnMlpUpNgnjB6oVvmum3dPNESctsXv2/bkUSCFhHJOF80dfdTV45d9YqwN1jGKeGJaMB1sol0Oj0Ufl9SWvX0EvZhG++SLafA="
+    - secure: "Y/K0XnM8/CdANUT2ZCMb5Az1951wLQgwEc11cMWTK7bOHK6MfJ/WAXJmzI80NErJbj58h0pbMRp7YetfDi1PqjiCKU9j34eOh/dI5RUxorS4D4ccHA14x9IafeP/RgR/rTmJAe/tUxK5vU2/WwMFu/69bZ9g3qUFxDgTf8vhoW0="
 
 install:
   - pip install -r requirements.txt
@@ -22,4 +22,4 @@ script:
   - cd output
   - git add -f .
   - git commit -a -m "add new site content"
-  - git push https://${GH_TOKEN}@github.com/static-blog-sample/static-blog-sample.github.io.git master --quiet
+  - test $? -eq "0" && git push https://${GH_TOKEN}@github.com/static-blog-sample/static-blog-sample.github.io.git master --quiet
