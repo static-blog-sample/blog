@@ -22,4 +22,4 @@ script:
   - cd output
   - git add -f .
   - git commit -a -m "add new site content"
-  - git push https://${GH_TOKEN}@github.com/static-blog-sample/static-blog-sample.github.io.git master
+  - git push https://${GH_TOKEN}@github.com/static-blog-sample/static-blog-sample.github.io.git master --quiet
