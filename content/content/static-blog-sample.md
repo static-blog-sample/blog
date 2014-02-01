@@ -90,7 +90,7 @@ github profile -> [Applications](https://github.com/settings/applications)
 token은 얻었는데 이것을 ```.travis.yml```에 그냥 노출시키는건 말이 안되잖아?
 그래서 [travis-ci는 token과 같이 중요한 정보를 암호화 시키는 방법][http://docs.travis-ci.com/user/encryption-keys/]을 제공한다.
 루비 gem이 필요한 관계로 이것이 굴러가는 환경을 구축한다.
-아래의 명령에서 repo-name은 자신한테 맞는것으로 바꾼다. 예를 들면 이 글의 경우는 ```static-blog-sample/static-blog-sample.github.io```이다.
+아래의 명령에서 repo-name은 자신한테 맞는것으로 바꾼다. 예를 들면 이 글의 경우는 ```static-blog-sample/blog```이다. output repo가 아니라 **content repo**다!
 
 ```
 gem install travis
@@ -109,6 +109,7 @@ travis-ci가 블로그를 받아서 수행할 작업을 작성한다. 세부 내
 make publish
 git config --global user.email "your-mail@gmail.com"
 git config --global user.name "Travis"
+cp CNAME output
 cd output
 git pull origin master
 git checkout master
@@ -120,12 +121,10 @@ git push https://${GH_TOKEN}@github.com/static-blog-sample/static-blog-sample.gi
 
 # Reference
 
-* GitHub Pages : http://pages.github.com/
+* [GitHub Pages][http://pages.github.com]
 * [정적 웹사이트 생성기의 유혹][static-site-generator]
-* wesleyhales.com : https://github.com/wesleyhales/wesleyhales.com
-* https://github.com/talha131/onCrashReboot
-* Disqus : http://disqus.com
-* Pelican : http://blog.getpelican.com/
+* [wesleyhales.com][https://github.com/wesleyhales/wesleyhales.com]
+* [onCrashReboot][talha131-blog]
 
 [github-custom-domain]: https://help.github.com/articles/setting-up-a-custom-domain-with-pages
 [static-site-generator]: http://blog.nacyot.com/articles/2014-01-15-static-site-generator/
