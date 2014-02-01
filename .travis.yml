@@ -1,0 +1,25 @@
+language: python
+
+python:
+  - "2.7"
+
+env:
+  global:
+    - secure: "ObfFUVWb3ly6VVFhhVBkmhBI/4dW0WXgxMabx2Bkj2JN4y6X1PH05GcPMU5OGN9CaCpNOr+wmTz5kNeDwawbqQcWfKj+inkpmsyhEPAerM5cgbKp46lKaMUmGWsG6t2opJ/g8X33mc3chMiPieWFM5g08QAQoBlIV3CQ2JaryaU="
+
+
+install:
+  - pip install -r requirements.txt
+
+script:
+  - make publish
+  - git config --global user.email "libsora25@gmail.com"
+  -	git config --global user.name "Travis"
+  -	cd output
+  - git pull origin master
+  - git checkout master
+  - git add -f .
+  - git commit -a -m "add new site content"
+  - git push https://${GH_TOKEN}@github.com/static-blog-sample/static-blog-sample.github.io.git master
+
+a449f673bc76d3bfdea040d930e11219aa60a355

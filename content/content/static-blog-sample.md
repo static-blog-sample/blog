@@ -64,6 +64,58 @@ pelican을 이용한 설정 예제는 해당 블로그를 참고하면 된다.
 
 ## travis-ci
 
+새로운 글이 푸시되었을때 travis-ci가 하고싶은 작업은 다음과 같다.
+
+1. static html generator를 돌려서 html을 생성한다. html은 output에 들어간다
+2. output repo의 내용을 커밋한 다음 푸시한다.
+3. 참 쉽죠?
+
+이를 하기 위해서는 몇가지 과정을 거쳐야한다.
+
+
+### static html generator가 돌아갈 수 있는 환경 만들기.
+
+jekyll을 쓰건 pelican을 쓰건 이런 static html generator은 travis-ci에 당연히 설치되어있지 않다.
+.travis.yml에 해당 패키지를 설치하는 스크립트를 잊지말고 작성한다.
+
+### GitHub Token
+
+travis-ci에서 다른 저장소로 푸시를 하기 위해서는 token이 필요하다.
+github profile -> [Applications](https://github.com/settings/applications)
+으로 들어간다.
+**Create new token** 을 누르고 적절히 token을 하나 만든다. 이 token을 기억해놓는다.
+
+![Create new token](/static/create-token.png)
+
+token은 얻었는데 이것을 ```.travis.yml```에 그냥 노출시키는건 말이 안되잖아?
+그래서 [travis-ci는 token과 같이 중요한 정보를 암호화 시키는 방법][http://docs.travis-ci.com/user/encryption-keys/]을 제공한다.
+루비 gem이 필요한 관계로 이것이 굴러가는 환경을 구축한다.
+아래의 명령에서 repo-name은 자신한테 맞는것으로 바꾼다. 예를 들면 이 글의 경우는 ```static-blog-sample/static-blog-sample.github.io```이다.
+
+```
+gem install travis
+travis encrypt GH_TOKEN=<token> -r <repo-name>
+
+```
+
+출력으로 ```secure: ".... encrypted data ...."``` 와 같은게 나온다. 이를 ```.travis.yml```에 집어넣는다.
+
+### 빌드 스크립트 작성
+
+travis-ci가 블로그를 받아서 수행할 작업을 작성한다. 세부 내용은 자신의 환경에 맞춰서 바꾸면된다.
+
+```
+# 정적 html 생성은 자신이 사용하는 환경에 맞춰서 바꾼다.
+make publish
+git config --global user.email "your-mail@gmail.com"
+git config --global user.name "Travis"
+cd output
+git pull origin master
+git checkout master
+git add -f .
+git commit -a -m "add new site content"
+git push https://${GH_TOKEN}@github.com/static-blog-sample/static-blog-sample.github.io.git master
+```
 
 
 # Reference
