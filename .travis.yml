@@ -9,6 +9,7 @@ env:
 
 install:
   - pip install -r requirements.txt
+  - npm install less
 
 script:
   - git config --global user.email "libsora25@gmail.com"
