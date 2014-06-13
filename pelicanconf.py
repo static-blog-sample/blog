@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = u'if1live'
-SITENAME = u'Static Blog Sample'
+SITENAME = u'Demo'
 SITEURL = ''
 
 TIMEZONE = 'Asia/Seoul'
@@ -25,18 +25,32 @@ LINKS =  (('Pelican', 'http://getpelican.com/'),
           ('libsora.so', 'http://libsora.so/'),)
 
 # Social widget
-SOCIAL = (('Twitter', 'https://twitter.com/if1live'),
-          ('GitHub-Repo', 'https://github.com/static-blog-sample/'),
-          ('GitHub-Writer', 'https://github.com/if1live'))
+SOCIAL = (('Twitter', 'https://twitter.com/if1live'),)
 
 DEFAULT_PAGINATION = 10
 DEFAULT_PAGINATION = False
 
 # Uncomment following line if you want document-relative URLs when developing
-#RELATIVE_URLS = True
-
-
-DISPLAY_PAGES_ON_MENU = True
-DISPLAY_CATEGORIES_ON_MENU = True
+RELATIVE_URLS = True
 
 STATIC_PATHS = ['static']
+
+
+PLUGIN_PATH = 'ext/pelican-plugins'
+THEME = 'ext/pelican-sora'
+
+PLUGINS = [
+    'assets',
+	'tipue_search',
+	'sitemap',
+]
+
+MD_EXTENSIONS = ['codehilite(css_class=highlight)', 'extra', 'headerid']
+DIRECT_TEMPLATES = (('index', 'tags', 'categories','archives', 'search', '404'))
+
+SITE_DESCRIPTION = u'static blog generator sample'
+SITESUBTITLE = ''
+SITE_LICENSE = ''
+RECENT_ARTICLES_COUNT = 10
+
+DNSEVER_BANNER = True
