@@ -39,6 +39,7 @@ STATIC_PATHS = ['static']
 PLUGIN_PATH = 'ext/pelican-plugins'
 THEME = 'ext/pelican-sora'
 
+# for pelican-sora theme
 PLUGINS = [
     'assets',
 	'tipue_search',
@@ -54,3 +55,17 @@ SITE_LICENSE = ''
 RECENT_ARTICLES_COUNT = 10
 
 DNSEVER_BANNER = True
+
+SITEMAP = {
+    'format': 'xml',
+    'priorities': {
+        'articles': 0.5,
+        'indexes': 0.5,
+        'pages': 0.5
+    },
+    'changefreqs': {
+        'articles': 'monthly',
+        'indexes': 'daily',
+        'pages': 'monthly'
+    }
+}
