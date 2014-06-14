@@ -1,4 +1,5 @@
-pelican==3.3
+pelican
 markdown
 beautifulsoup4
 webassets
+docutils

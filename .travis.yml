@@ -14,38 +14,6 @@ install:
 before_script:
   - git config --global user.email "libsora25@gmail.com"
   - git config --global user.name "Travis"
-  - rm -rf ext/pelican-plugins/b*
-  - rm -rf ext/pelican-plugins/c*
-  - rm -rf ext/pelican-plugins/d*
-  - rm -rf ext/pelican-plugins/e*
-  - rm -rf ext/pelican-plugins/f*
-  - rm -rf ext/pelican-plugins/g*
-  - rm -rf ext/pelican-plugins/h*
-  - rm -rf ext/pelican-plugins/i*
-  - rm -rf ext/pelican-plugins/j*
-  - rm -rf ext/pelican-plugins/k*
-  - rm -rf ext/pelican-plugins/l*
-  - rm -rf ext/pelican-plugins/m*
-  - rm -rf ext/pelican-plugins/n*
-  - rm -rf ext/pelican-plugins/o*
-  - rm -rf ext/pelican-plugins/p*
-  - rm -rf ext/pelican-plugins/q*
-  - rm -rf ext/pelican-plugins/r*
-  - rm -rf ext/pelican-plugins/share_post
-  - rm -rf ext/pelican-plugins/simple_footnotes
-  - rm -rf ext/pelican-plugins/static_comments
-  - rm -rf ext/pelican-plugins/subcategory
-  - rm -rf ext/pelican-plugins/summary
-  - rm -rf ext/pelican-plugins/test_data
-  - rm -rf ext/pelican-plugins/thumbnailer
-  - rm -rf ext/pelican-plugins/touch
-  - rm -rf ext/pelican-plugins/twitter_bootstrap_rst_directives
-  - rm -rf ext/pelican-plugins/u*
-  - rm -rf ext/pelican-plugins/v*
-  - rm -rf ext/pelican-plugins/w*
-  - rm -rf ext/pelican-plugins/x*
-  - rm -rf ext/pelican-plugins/y*
-  - rm -rf ext/pelican-plugins/z*
 
 script:
   - cd output
