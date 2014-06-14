@@ -21,6 +21,7 @@ script:
   - git pull
   - cd ..
   - cp CNAME output
+  - pelican
   - make publish
   - cd output
   - git add -f .
